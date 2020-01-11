@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Blender_Motion_Capture" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvA-eR-oOZ">
+                                <rect key="frame" x="0.0" y="86" width="375" height="361"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="361" id="yBa-rj-rNc"/>
+                                </constraints>
+                            </sceneKitView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNo-7R-iNY">
+                                <rect key="frame" x="16" y="717" width="343" height="61"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="eqy-7k-aFN"/>
+                                </constraints>
+                                <state key="normal" title="record">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dYA-Do-k0H"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="your email here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w4L-Iz-f8L">
+                                <rect key="frame" x="16" y="44" width="343" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMk-qo-puA" customClass="ARSCNView">
+                                <rect key="frame" x="0.0" y="455" width="375" height="254"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="VMk-qo-puA" firstAttribute="top" secondItem="jvA-eR-oOZ" secondAttribute="bottom" constant="8" id="0xU-54-Ad5"/>
+                            <constraint firstItem="w4L-Iz-f8L" firstAttribute="trailing" secondItem="xNo-7R-iNY" secondAttribute="trailing" id="FV8-O4-7wW"/>
+                            <constraint firstItem="w4L-Iz-f8L" firstAttribute="leading" secondItem="xNo-7R-iNY" secondAttribute="leading" id="Lf9-Gw-6sk"/>
+                            <constraint firstItem="xNo-7R-iNY" firstAttribute="top" secondItem="VMk-qo-puA" secondAttribute="bottom" constant="8" id="QBV-Mh-DBF"/>
+                            <constraint firstItem="w4L-Iz-f8L" firstAttribute="centerX" secondItem="jvA-eR-oOZ" secondAttribute="centerX" id="V0r-TC-S2A"/>
+                            <constraint firstItem="jvA-eR-oOZ" firstAttribute="leading" secondItem="VMk-qo-puA" secondAttribute="leading" id="Y7n-j8-FKC"/>
+                            <constraint firstItem="w4L-Iz-f8L" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="cUs-ti-OQL"/>
+                            <constraint firstItem="jvA-eR-oOZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gQs-lD-UpW"/>
+                            <constraint firstItem="jvA-eR-oOZ" firstAttribute="top" secondItem="w4L-Iz-f8L" secondAttribute="bottom" constant="8" id="lhG-Cs-aeB"/>
+                            <constraint firstItem="jvA-eR-oOZ" firstAttribute="trailing" secondItem="VMk-qo-puA" secondAttribute="trailing" id="rPI-6o-oyV"/>
+                            <constraint firstItem="xNo-7R-iNY" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="sdk-1L-NCM"/>
+                            <constraint firstItem="w4L-Iz-f8L" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="syT-ke-vND"/>
+                            <constraint firstItem="w4L-Iz-f8L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="wQQ-cJ-1cM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonsRecord" destination="xNo-7R-iNY" id="nbw-99-QvJ"/>
+                        <outlet property="email" destination="w4L-Iz-f8L" id="lkd-Wa-7Or"/>
+                        <outlet property="faceView" destination="jvA-eR-oOZ" id="i0F-Xz-e4D"/>
+                        <outlet property="trackingView" destination="VMk-qo-puA" id="b6N-cl-7Nh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="139"/>
+        </scene>
+    </scenes>
+</document>

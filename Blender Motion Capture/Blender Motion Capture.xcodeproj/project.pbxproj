@@ -1,0 +1,616 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C540478223CA2B2E00C3F5EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540478123CA2B2E00C3F5EB /* AppDelegate.swift */; };
+		C540478423CA2B2E00C3F5EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540478323CA2B2E00C3F5EB /* SceneDelegate.swift */; };
+		C540478623CA2B2E00C3F5EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540478523CA2B2E00C3F5EB /* ViewController.swift */; };
+		C540478923CA2B2E00C3F5EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C540478723CA2B2E00C3F5EB /* Main.storyboard */; };
+		C540478C23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C540478A23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld */; };
+		C540478E23CA2B3000C3F5EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C540478D23CA2B3000C3F5EB /* Assets.xcassets */; };
+		C540479123CA2B3000C3F5EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C540478F23CA2B3000C3F5EB /* LaunchScreen.storyboard */; };
+		C540479C23CA2B3100C3F5EB /* Blender_Motion_CaptureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540479B23CA2B3100C3F5EB /* Blender_Motion_CaptureTests.swift */; };
+		C54047A723CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54047A623CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift */; };
+		C54047B523CA2C7A00C3F5EB /* Smiley.scn in Resources */ = {isa = PBXBuildFile; fileRef = C54047B423CA2C7A00C3F5EB /* Smiley.scn */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C540479823CA2B3100C3F5EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C540477623CA2B2E00C3F5EB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C540477D23CA2B2E00C3F5EB;
+			remoteInfo = "Blender Motion Capture";
+		};
+		C54047A323CA2B3100C3F5EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C540477623CA2B2E00C3F5EB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C540477D23CA2B2E00C3F5EB;
+			remoteInfo = "Blender Motion Capture";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C540477E23CA2B2E00C3F5EB /* Blender Motion Capture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blender Motion Capture.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C540478123CA2B2E00C3F5EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C540478323CA2B2E00C3F5EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C540478523CA2B2E00C3F5EB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C540478823CA2B2E00C3F5EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C540478B23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blender_Motion_Capture.xcdatamodel; sourceTree = "<group>"; };
+		C540478D23CA2B3000C3F5EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C540479023CA2B3000C3F5EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C540479223CA2B3000C3F5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C540479723CA2B3100C3F5EB /* Blender Motion CaptureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blender Motion CaptureTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C540479B23CA2B3100C3F5EB /* Blender_Motion_CaptureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blender_Motion_CaptureTests.swift; sourceTree = "<group>"; };
+		C540479D23CA2B3100C3F5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C54047A223CA2B3100C3F5EB /* Blender Motion CaptureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blender Motion CaptureUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C54047A623CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blender_Motion_CaptureUITests.swift; sourceTree = "<group>"; };
+		C54047A823CA2B3100C3F5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C54047B423CA2C7A00C3F5EB /* Smiley.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Smiley.scn; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C540477B23CA2B2E00C3F5EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C540479423CA2B3100C3F5EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C540479F23CA2B3100C3F5EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C540477523CA2B2E00C3F5EB = {
+			isa = PBXGroup;
+			children = (
+				C54047B423CA2C7A00C3F5EB /* Smiley.scn */,
+				C540478023CA2B2E00C3F5EB /* Blender Motion Capture */,
+				C540479A23CA2B3100C3F5EB /* Blender Motion CaptureTests */,
+				C54047A523CA2B3100C3F5EB /* Blender Motion CaptureUITests */,
+				C540477F23CA2B2E00C3F5EB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C540477F23CA2B2E00C3F5EB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C540477E23CA2B2E00C3F5EB /* Blender Motion Capture.app */,
+				C540479723CA2B3100C3F5EB /* Blender Motion CaptureTests.xctest */,
+				C54047A223CA2B3100C3F5EB /* Blender Motion CaptureUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C540478023CA2B2E00C3F5EB /* Blender Motion Capture */ = {
+			isa = PBXGroup;
+			children = (
+				C540478123CA2B2E00C3F5EB /* AppDelegate.swift */,
+				C540478323CA2B2E00C3F5EB /* SceneDelegate.swift */,
+				C540478523CA2B2E00C3F5EB /* ViewController.swift */,
+				C540478723CA2B2E00C3F5EB /* Main.storyboard */,
+				C540478D23CA2B3000C3F5EB /* Assets.xcassets */,
+				C540478F23CA2B3000C3F5EB /* LaunchScreen.storyboard */,
+				C540479223CA2B3000C3F5EB /* Info.plist */,
+				C540478A23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld */,
+			);
+			path = "Blender Motion Capture";
+			sourceTree = "<group>";
+		};
+		C540479A23CA2B3100C3F5EB /* Blender Motion CaptureTests */ = {
+			isa = PBXGroup;
+			children = (
+				C540479B23CA2B3100C3F5EB /* Blender_Motion_CaptureTests.swift */,
+				C540479D23CA2B3100C3F5EB /* Info.plist */,
+			);
+			path = "Blender Motion CaptureTests";
+			sourceTree = "<group>";
+		};
+		C54047A523CA2B3100C3F5EB /* Blender Motion CaptureUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C54047A623CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift */,
+				C54047A823CA2B3100C3F5EB /* Info.plist */,
+			);
+			path = "Blender Motion CaptureUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C540477D23CA2B2E00C3F5EB /* Blender Motion Capture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C54047AB23CA2B3100C3F5EB /* Build configuration list for PBXNativeTarget "Blender Motion Capture" */;
+			buildPhases = (
+				C540477A23CA2B2E00C3F5EB /* Sources */,
+				C540477B23CA2B2E00C3F5EB /* Frameworks */,
+				C540477C23CA2B2E00C3F5EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Blender Motion Capture";
+			productName = "Blender Motion Capture";
+			productReference = C540477E23CA2B2E00C3F5EB /* Blender Motion Capture.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C540479623CA2B3100C3F5EB /* Blender Motion CaptureTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C54047AE23CA2B3100C3F5EB /* Build configuration list for PBXNativeTarget "Blender Motion CaptureTests" */;
+			buildPhases = (
+				C540479323CA2B3100C3F5EB /* Sources */,
+				C540479423CA2B3100C3F5EB /* Frameworks */,
+				C540479523CA2B3100C3F5EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C540479923CA2B3100C3F5EB /* PBXTargetDependency */,
+			);
+			name = "Blender Motion CaptureTests";
+			productName = "Blender Motion CaptureTests";
+			productReference = C540479723CA2B3100C3F5EB /* Blender Motion CaptureTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C54047A123CA2B3100C3F5EB /* Blender Motion CaptureUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C54047B123CA2B3100C3F5EB /* Build configuration list for PBXNativeTarget "Blender Motion CaptureUITests" */;
+			buildPhases = (
+				C540479E23CA2B3100C3F5EB /* Sources */,
+				C540479F23CA2B3100C3F5EB /* Frameworks */,
+				C54047A023CA2B3100C3F5EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C54047A423CA2B3100C3F5EB /* PBXTargetDependency */,
+			);
+			name = "Blender Motion CaptureUITests";
+			productName = "Blender Motion CaptureUITests";
+			productReference = C54047A223CA2B3100C3F5EB /* Blender Motion CaptureUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C540477623CA2B2E00C3F5EB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Jardin Labs";
+				TargetAttributes = {
+					C540477D23CA2B2E00C3F5EB = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					C540479623CA2B3100C3F5EB = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = C540477D23CA2B2E00C3F5EB;
+					};
+					C54047A123CA2B3100C3F5EB = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = C540477D23CA2B2E00C3F5EB;
+					};
+				};
+			};
+			buildConfigurationList = C540477923CA2B2E00C3F5EB /* Build configuration list for PBXProject "Blender Motion Capture" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C540477523CA2B2E00C3F5EB;
+			productRefGroup = C540477F23CA2B2E00C3F5EB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C540477D23CA2B2E00C3F5EB /* Blender Motion Capture */,
+				C540479623CA2B3100C3F5EB /* Blender Motion CaptureTests */,
+				C54047A123CA2B3100C3F5EB /* Blender Motion CaptureUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C540477C23CA2B2E00C3F5EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C540479123CA2B3000C3F5EB /* LaunchScreen.storyboard in Resources */,
+				C540478E23CA2B3000C3F5EB /* Assets.xcassets in Resources */,
+				C540478923CA2B2E00C3F5EB /* Main.storyboard in Resources */,
+				C54047B523CA2C7A00C3F5EB /* Smiley.scn in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C540479523CA2B3100C3F5EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C54047A023CA2B3100C3F5EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C540477A23CA2B2E00C3F5EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C540478623CA2B2E00C3F5EB /* ViewController.swift in Sources */,
+				C540478223CA2B2E00C3F5EB /* AppDelegate.swift in Sources */,
+				C540478423CA2B2E00C3F5EB /* SceneDelegate.swift in Sources */,
+				C540478C23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C540479323CA2B3100C3F5EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C540479C23CA2B3100C3F5EB /* Blender_Motion_CaptureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C540479E23CA2B3100C3F5EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C54047A723CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C540479923CA2B3100C3F5EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C540477D23CA2B2E00C3F5EB /* Blender Motion Capture */;
+			targetProxy = C540479823CA2B3100C3F5EB /* PBXContainerItemProxy */;
+		};
+		C54047A423CA2B3100C3F5EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C540477D23CA2B2E00C3F5EB /* Blender Motion Capture */;
+			targetProxy = C54047A323CA2B3100C3F5EB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C540478723CA2B2E00C3F5EB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C540478823CA2B2E00C3F5EB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C540478F23CA2B3000C3F5EB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C540479023CA2B3000C3F5EB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C54047A923CA2B3100C3F5EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C54047AA23CA2B3100C3F5EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C54047AC23CA2B3100C3F5EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UTS963Q4SJ;
+				INFOPLIST_FILE = "Blender Motion Capture/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-Capture";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C54047AD23CA2B3100C3F5EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UTS963Q4SJ;
+				INFOPLIST_FILE = "Blender Motion Capture/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-Capture";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C54047AF23CA2B3100C3F5EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UTS963Q4SJ;
+				INFOPLIST_FILE = "Blender Motion CaptureTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-CaptureTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blender Motion Capture.app/Blender Motion Capture";
+			};
+			name = Debug;
+		};
+		C54047B023CA2B3100C3F5EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UTS963Q4SJ;
+				INFOPLIST_FILE = "Blender Motion CaptureTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-CaptureTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blender Motion Capture.app/Blender Motion Capture";
+			};
+			name = Release;
+		};
+		C54047B223CA2B3100C3F5EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UTS963Q4SJ;
+				INFOPLIST_FILE = "Blender Motion CaptureUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-CaptureUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Blender Motion Capture";
+			};
+			name = Debug;
+		};
+		C54047B323CA2B3100C3F5EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UTS963Q4SJ;
+				INFOPLIST_FILE = "Blender Motion CaptureUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-CaptureUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Blender Motion Capture";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C540477923CA2B2E00C3F5EB /* Build configuration list for PBXProject "Blender Motion Capture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C54047A923CA2B3100C3F5EB /* Debug */,
+				C54047AA23CA2B3100C3F5EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C54047AB23CA2B3100C3F5EB /* Build configuration list for PBXNativeTarget "Blender Motion Capture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C54047AC23CA2B3100C3F5EB /* Debug */,
+				C54047AD23CA2B3100C3F5EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C54047AE23CA2B3100C3F5EB /* Build configuration list for PBXNativeTarget "Blender Motion CaptureTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C54047AF23CA2B3100C3F5EB /* Debug */,
+				C54047B023CA2B3100C3F5EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C54047B123CA2B3100C3F5EB /* Build configuration list for PBXNativeTarget "Blender Motion CaptureUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C54047B223CA2B3100C3F5EB /* Debug */,
+				C54047B323CA2B3100C3F5EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C540478A23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C540478B23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodel */,
+			);
+			currentVersion = C540478B23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodel */;
+			path = Blender_Motion_Capture.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C540477623CA2B2E00C3F5EB /* Project object */;
+}
