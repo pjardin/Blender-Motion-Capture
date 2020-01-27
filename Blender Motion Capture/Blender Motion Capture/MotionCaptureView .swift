@@ -22,13 +22,14 @@ var motcap = [String: [[Float]] ]()
 //let frameRate = 1.0/24
 
 
-class MotionCaptureView: UIViewController, ARSessionDelegate, MFMailComposeViewControllerDelegate {
+class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegate, MFMailComposeViewControllerDelegate {
 
     @IBOutlet var arView: ARView!
     
     
     @IBOutlet var email: UITextField!
     
+
     @IBOutlet var buttonsRecord: UIButton!
     
     var recording = false
@@ -81,7 +82,15 @@ class MotionCaptureView: UIViewController, ARSessionDelegate, MFMailComposeViewC
         })
         
         initMotcap();
+        
+        self.email.delegate = self
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     
     func initMotcap(){
         motcap = [
@@ -115,51 +124,61 @@ class MotionCaptureView: UIViewController, ARSessionDelegate, MFMailComposeViewC
             characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
             
             
-            let newTime = CACurrentMediaTime()
-            
-            let dif = newTime - time
-            
-            if (  dif >=  frameRate ){
-            
-                let skeleton = bodyAnchor.skeleton
-
-                //https://developer.apple.com/documentation/arkit/arskeletonjointnamehead?language=objc
-                let head = skeleton.localTransform(for: ARSkeleton.JointName.head)
-                
-                let leftFoot = skeleton.localTransform(for: ARSkeleton.JointName.leftFoot)
-                let leftHand = skeleton.localTransform(for: ARSkeleton.JointName.leftHand)
-                let leftSholder = skeleton.localTransform(for: ARSkeleton.JointName.leftShoulder)
-
-                let rightFoot = skeleton.localTransform(for: ARSkeleton.JointName.rightFoot)
-                let rightHand = skeleton.localTransform(for: ARSkeleton.JointName.rightHand)
-                let rightSholder = skeleton.localTransform(for: ARSkeleton.JointName.rightShoulder)
-
-                let root = skeleton.localTransform(for: ARSkeleton.JointName.root)
-
-                
-                motcap["head"]?.append(head!.pos_eulerAngles)
-                
-                motcap["leftFoot"]?.append(leftFoot!.pos_eulerAngles)
-                motcap["leftHand"]?.append(leftHand!.pos_eulerAngles)
-                motcap["leftSholder"]?.append(leftSholder!.pos_eulerAngles)
-
-                motcap["rightFoot"]?.append(rightFoot!.pos_eulerAngles)
-                motcap["rightHand"]?.append(rightHand!.pos_eulerAngles)
-                motcap["rightSholder"]?.append(rightSholder!.pos_eulerAngles)
-
-                motcap["root"]?.append(root!.pos_eulerAngles)
-                
-                
-                time = newTime - (dif - frameRate) //this is to keep it at check.
-                
-            }
-            
             if let character = character, character.parent == nil {
                 // Attach the character to its anchor as soon as
                 // 1. the body anchor was detected and
                 // 2. the character was loaded.
                 characterAnchor.addChild(character)
             }
+            
+            
+            let newTime = CACurrentMediaTime()
+            
+            let dif = newTime - time
+            
+            if (  dif >=  frameRate ){
+            
+                if (self.recording == true){
+                    let skeleton = bodyAnchor.skeleton
+
+                    //https://developer.apple.com/documentation/arkit/arskeletonjointnamehead?language=objc
+                    let head = skeleton.modelTransform(for: ARSkeleton.JointName.head)//localTransform
+                    
+                    let leftFoot = skeleton.modelTransform(for: ARSkeleton.JointName.leftFoot)
+                    let leftHand = skeleton.modelTransform(for: ARSkeleton.JointName.leftHand)
+                    let leftSholder = skeleton.modelTransform(for: ARSkeleton.JointName.leftShoulder)
+
+                    let rightFoot = skeleton.modelTransform(for: ARSkeleton.JointName.rightFoot)
+                    let rightHand = skeleton.modelTransform(for: ARSkeleton.JointName.rightHand)
+                    let rightSholder = skeleton.modelTransform(for: ARSkeleton.JointName.rightShoulder)
+
+                    let root = skeleton.modelTransform(for: ARSkeleton.JointName.root)
+
+                    
+                    if (head!.pos_eulerAngles == nil) {
+                        print("nil")
+                    }
+                    //print(head!.pos_eulerAngles)
+                    
+                    
+                    motcap["head"]?.append(head!.pos_eulerAngles)
+                    
+                    motcap["leftFoot"]?.append(leftFoot!.pos_eulerAngles)
+                    motcap["leftHand"]?.append(leftHand!.pos_eulerAngles)
+                    motcap["leftSholder"]?.append(leftSholder!.pos_eulerAngles)
+
+                    motcap["rightFoot"]?.append(rightFoot!.pos_eulerAngles)
+                    motcap["rightHand"]?.append(rightHand!.pos_eulerAngles)
+                    motcap["rightSholder"]?.append(rightSholder!.pos_eulerAngles)
+
+                    motcap["root"]?.append(root!.pos_eulerAngles)
+                }
+                
+                time = newTime - (dif - frameRate) //this is to keep it at check.
+                
+            }
+            
+
         }
     }
     
@@ -242,7 +261,7 @@ public extension matrix_float4x4 {
             // roll (x-axis rotation)
             let sinr = +2.0 * (qw * qx + qy * qz)
             let cosr = +1.0 - 2.0 * (qx * qx + qy * qy)
-            let roll = atan2(sinr, cosr)
+            var roll = atan2(sinr, cosr)
 
             // pitch (y-axis rotation)
             let sinp = +2.0 * (qw * qy - qz * qx)
@@ -256,10 +275,40 @@ public extension matrix_float4x4 {
             // yaw (z-axis rotation)
             let siny = +2.0 * (qw * qz + qx * qy)
             let cosy = +1.0 - 2.0 * (qy * qy + qz * qz)
-            let yaw = atan2(siny, cosy)
+            var yaw = atan2(siny, cosy)
 
             //https://stackoverflow.com/questions/45212598/convert-matrix-float4x4-to-x-y-z-space
-            return [columns.3.x, columns.3.y, columns.3.z, pitch, yaw, roll]
+            
+            var x = columns.3.x;
+            var y = columns.3.y;
+            var z = columns.3.z;
+
+            if x.isNaN {
+                x = 0;
+            }
+            
+            if y.isNaN {
+                y = 0;
+            }
+            
+            if z.isNaN {
+                z = 0;
+            }
+            
+            if pitch.isNaN {
+                pitch = 0;
+            }
+            
+            if yaw.isNaN {
+                yaw = 0;
+            }
+            
+            if roll.isNaN {
+                roll = 0;
+            }
+            
+            
+            return [x, y,z, pitch, yaw, roll]
         }
     }
     
