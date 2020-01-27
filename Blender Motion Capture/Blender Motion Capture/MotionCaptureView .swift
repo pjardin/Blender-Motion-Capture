@@ -14,15 +14,25 @@ import RealityKit
 import ARKit
 import Combine
 
+import MessageUI
+
 
 var motcap = [String: [[Float]] ]()
 
 //let frameRate = 1.0/24
 
 
-class MotionCaptureView: UIViewController, ARSessionDelegate {
+class MotionCaptureView: UIViewController, ARSessionDelegate, MFMailComposeViewControllerDelegate {
 
     @IBOutlet var arView: ARView!
+    
+    
+    @IBOutlet var email: UITextField!
+    
+    @IBOutlet var buttonsRecord: UIButton!
+    
+    var recording = false
+
     
     // The 3D character to display.
     var character: BodyTrackedEntity?
@@ -70,10 +80,10 @@ class MotionCaptureView: UIViewController, ARSessionDelegate {
             }
         })
         
-        initBlendShapes();
+        initMotcap();
     }
     
-    func initBlendShapes(){
+    func initMotcap(){
         motcap = [
         "head"           : [],
         
@@ -157,6 +167,52 @@ class MotionCaptureView: UIViewController, ARSessionDelegate {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "setUpCap"), object: nil)
 
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    @IBAction func click(_ sender: UIButton) {
+        if (recording == false){
+            buttonsRecord.setTitle("stop", for: .normal)
+            buttonsRecord.backgroundColor = UIColor.red
+            recording = true
+        } else {
+            buttonsRecord.setTitle("record", for: .normal)
+            buttonsRecord.backgroundColor = UIColor.green
+            recording = false
+
+            sendEmail()
+        }
+    }
+    
+    
+    func sendEmail(){
+        print("send Email!!")
+        //print(blendShape)
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setSubject("body data")
+            mail.setToRecipients([email.text!])
+            mail.setMessageBody("<p>drag and drop to the blender addon!</p>", isHTML: true)
+            
+            //grab blendshape data
+            let JSONdata = try! JSONSerialization.data(withJSONObject: motcap, options: JSONSerialization.WritingOptions.prettyPrinted)
+            
+            //https://www.iana.org/assignments/media-types/media-types.xhtml
+            mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "motcap")
+            
+            //clear blendShape data
+            initMotcap()
+            
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
     
     

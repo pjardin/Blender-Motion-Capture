@@ -121,6 +121,7 @@
                                 </state>
                                 <connections>
                                     <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wRf-If-CHy"/>
+                                    <action selector="click:" destination="cLW-68-Ybu" eventType="touchUpInside" id="z0D-Ex-cDh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Motion Capture " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yya-xl-J8b">
@@ -163,6 +164,8 @@
                     <navigationItem key="navigationItem" id="7gY-Ct-0Uk"/>
                     <connections>
                         <outlet property="arView" destination="WoG-9d-9bh" id="6TT-rF-8Ci"/>
+                        <outlet property="buttonsRecord" destination="BtJ-XE-e9M" id="FRu-6p-Rc4"/>
+                        <outlet property="email" destination="730-e1-DRA" id="uRa-FM-Iec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uZt-ym-PwD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
