@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C540478223CA2B2E00C3F5EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540478123CA2B2E00C3F5EB /* AppDelegate.swift */; };
 		C540478423CA2B2E00C3F5EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540478323CA2B2E00C3F5EB /* SceneDelegate.swift */; };
-		C540478623CA2B2E00C3F5EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540478523CA2B2E00C3F5EB /* ViewController.swift */; };
+		C540478623CA2B2E00C3F5EB /* FacialCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540478523CA2B2E00C3F5EB /* FacialCaptureView.swift */; };
 		C540478923CA2B2E00C3F5EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C540478723CA2B2E00C3F5EB /* Main.storyboard */; };
 		C540478C23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C540478A23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld */; };
 		C540478E23CA2B3000C3F5EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C540478D23CA2B3000C3F5EB /* Assets.xcassets */; };
@@ -17,6 +17,8 @@
 		C540479C23CA2B3100C3F5EB /* Blender_Motion_CaptureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540479B23CA2B3100C3F5EB /* Blender_Motion_CaptureTests.swift */; };
 		C54047A723CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54047A623CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift */; };
 		C54047B523CA2C7A00C3F5EB /* Smiley.scn in Resources */ = {isa = PBXBuildFile; fileRef = C54047B423CA2C7A00C3F5EB /* Smiley.scn */; };
+		C5A8C42823DF51AE0068C470 /* MotionCaptureView .swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A8C42723DF51AE0068C470 /* MotionCaptureView .swift */; };
+		C5A8C42A23DF534B0068C470 /* character in Resources */ = {isa = PBXBuildFile; fileRef = C5A8C42923DF534B0068C470 /* character */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +42,7 @@
 		C540477E23CA2B2E00C3F5EB /* Blender Motion Capture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blender Motion Capture.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C540478123CA2B2E00C3F5EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C540478323CA2B2E00C3F5EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C540478523CA2B2E00C3F5EB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C540478523CA2B2E00C3F5EB /* FacialCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacialCaptureView.swift; sourceTree = "<group>"; };
 		C540478823CA2B2E00C3F5EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C540478B23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blender_Motion_Capture.xcdatamodel; sourceTree = "<group>"; };
 		C540478D23CA2B3000C3F5EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +55,8 @@
 		C54047A623CA2B3100C3F5EB /* Blender_Motion_CaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blender_Motion_CaptureUITests.swift; sourceTree = "<group>"; };
 		C54047A823CA2B3100C3F5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C54047B423CA2C7A00C3F5EB /* Smiley.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Smiley.scn; sourceTree = "<group>"; };
+		C5A8C42723DF51AE0068C470 /* MotionCaptureView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MotionCaptureView .swift"; sourceTree = "<group>"; };
+		C5A8C42923DF534B0068C470 /* character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = character; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +108,11 @@
 		C540478023CA2B2E00C3F5EB /* Blender Motion Capture */ = {
 			isa = PBXGroup;
 			children = (
+				C5A8C42923DF534B0068C470 /* character */,
 				C540478123CA2B2E00C3F5EB /* AppDelegate.swift */,
 				C540478323CA2B2E00C3F5EB /* SceneDelegate.swift */,
-				C540478523CA2B2E00C3F5EB /* ViewController.swift */,
+				C540478523CA2B2E00C3F5EB /* FacialCaptureView.swift */,
+				C5A8C42723DF51AE0068C470 /* MotionCaptureView .swift */,
 				C540478723CA2B2E00C3F5EB /* Main.storyboard */,
 				C540478D23CA2B3000C3F5EB /* Assets.xcassets */,
 				C540478F23CA2B3000C3F5EB /* LaunchScreen.storyboard */,
@@ -238,6 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A8C42A23DF534B0068C470 /* character in Resources */,
 				C540479123CA2B3000C3F5EB /* LaunchScreen.storyboard in Resources */,
 				C540478E23CA2B3000C3F5EB /* Assets.xcassets in Resources */,
 				C540478923CA2B2E00C3F5EB /* Main.storyboard in Resources */,
@@ -266,7 +273,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C540478623CA2B2E00C3F5EB /* ViewController.swift in Sources */,
+				C540478623CA2B2E00C3F5EB /* FacialCaptureView.swift in Sources */,
+				C5A8C42823DF51AE0068C470 /* MotionCaptureView .swift in Sources */,
 				C540478223CA2B2E00C3F5EB /* AppDelegate.swift in Sources */,
 				C540478423CA2B2E00C3F5EB /* SceneDelegate.swift in Sources */,
 				C540478C23CA2B2E00C3F5EB /* Blender_Motion_Capture.xcdatamodeld in Sources */,
@@ -452,7 +460,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-Capture";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -470,7 +478,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-Capture";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
