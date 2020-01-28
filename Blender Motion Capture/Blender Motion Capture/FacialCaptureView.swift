@@ -12,6 +12,8 @@ import SceneKit
 import ARKit
 import MessageUI
 
+import AVFoundation
+
 //https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation
 var blendShape = [String: [Float] ]()
 
@@ -32,6 +34,10 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
     @IBOutlet var email: UITextField!
     
     @IBOutlet var buttonsRecord: UIButton!
+    
+    
+    var playerItem:AVPlayerItem?
+    var player:AVPlayer?
     
     
     var contentNode: SCNReferenceNode? // Reference to the .scn file
@@ -74,6 +80,8 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
         
         setUpRecorder()
  
+        
+
         
         
     }
@@ -181,10 +189,23 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
     
     @IBAction func click(_ sender: UIButton) {
         if (recording == false){
-            buttonsRecord.setTitle("stop", for: .normal)
-            buttonsRecord.backgroundColor = UIColor.red
-            recording = true
-            startRecording()
+            
+            let path = Bundle.main.path(forResource: "countDown", ofType:"wav")!
+            let url = URL(fileURLWithPath: path)
+            
+            playerItem = AVPlayerItem(url: url as URL)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+
+            player=AVPlayer(playerItem: playerItem!)
+            player?.volume = 30
+            player!.play()
+            
+            UIView.animate(withDuration: 1, delay: 0.0, options: [.curveEaseInOut, .repeat, .autoreverse, .allowUserInteraction], animations: {() -> Void in
+                self.buttonsRecord.alpha = 0.0
+                }, completion: {(finished: Bool) -> Void in
+            })
+            
+
         } else {
             buttonsRecord.setTitle("record", for: .normal)
             buttonsRecord.backgroundColor = UIColor.green
@@ -194,6 +215,18 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
             sendEmail()
         }
     }
+    @objc func playerDidFinishPlaying(sender: Notification) {
+        
+        self.buttonsRecord.layer.removeAllAnimations()
+        self.buttonsRecord.alpha = 1
+        
+        buttonsRecord.setTitle("stop", for: .normal)
+        buttonsRecord.backgroundColor = UIColor.red
+        recording = true
+        startRecording()
+        
+    }
+    
     
     func sendEmail(){
         print("send Email!!")

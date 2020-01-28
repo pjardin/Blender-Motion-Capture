@@ -34,6 +34,8 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     
     var recording = false
 
+    var playerItem:AVPlayerItem?
+    var player:AVPlayer?
     
     // The 3D character to display.
     var character: BodyTrackedEntity?
@@ -155,11 +157,6 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
                     let root = skeleton.modelTransform(for: ARSkeleton.JointName.root)
 
                     
-                    if (head!.pos_eulerAngles == nil) {
-                        print("nil")
-                    }
-                    //print(head!.pos_eulerAngles)
-                    
                     
                     motcap["head"]?.append(head!.pos_eulerAngles)
                     
@@ -192,9 +189,23 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     
     @IBAction func click(_ sender: UIButton) {
         if (recording == false){
-            buttonsRecord.setTitle("stop", for: .normal)
-            buttonsRecord.backgroundColor = UIColor.red
-            recording = true
+        
+            let path = Bundle.main.path(forResource: "countDown", ofType:"wav")!
+                       let url = URL(fileURLWithPath: path)
+                       
+                       playerItem = AVPlayerItem(url: url as URL)
+                       NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+
+                       player=AVPlayer(playerItem: playerItem!)
+                       player?.volume = 30
+                       player!.play()
+                       
+                       UIView.animate(withDuration: 1, delay: 0.0, options: [.curveEaseInOut, .repeat, .autoreverse, .allowUserInteraction], animations: {() -> Void in
+                           self.buttonsRecord.alpha = 0.0
+                           }, completion: {(finished: Bool) -> Void in
+                       })
+            
+            
         } else {
             buttonsRecord.setTitle("record", for: .normal)
             buttonsRecord.backgroundColor = UIColor.green
@@ -203,6 +214,20 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
             sendEmail()
         }
     }
+    
+    
+    
+    @objc func playerDidFinishPlaying(sender: Notification) {
+        
+        self.buttonsRecord.layer.removeAllAnimations()
+        self.buttonsRecord.alpha = 1
+        
+        buttonsRecord.setTitle("stop", for: .normal)
+        buttonsRecord.backgroundColor = UIColor.red
+        recording = true
+        
+    }
+    
     
     
     func sendEmail(){

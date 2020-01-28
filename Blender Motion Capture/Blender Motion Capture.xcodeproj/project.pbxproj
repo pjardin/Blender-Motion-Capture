@@ -19,6 +19,7 @@
 		C54047B523CA2C7A00C3F5EB /* Smiley.scn in Resources */ = {isa = PBXBuildFile; fileRef = C54047B423CA2C7A00C3F5EB /* Smiley.scn */; };
 		C5A8C42823DF51AE0068C470 /* MotionCaptureView .swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A8C42723DF51AE0068C470 /* MotionCaptureView .swift */; };
 		C5A8C42A23DF534B0068C470 /* character in Resources */ = {isa = PBXBuildFile; fileRef = C5A8C42923DF534B0068C470 /* character */; };
+		C5A8C42D23E003CB0068C470 /* countDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5A8C42C23E003CA0068C470 /* countDown.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		C54047B423CA2C7A00C3F5EB /* Smiley.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Smiley.scn; sourceTree = "<group>"; };
 		C5A8C42723DF51AE0068C470 /* MotionCaptureView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MotionCaptureView .swift"; sourceTree = "<group>"; };
 		C5A8C42923DF534B0068C470 /* character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = character; sourceTree = "<group>"; };
+		C5A8C42C23E003CA0068C470 /* countDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = countDown.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 		C540478023CA2B2E00C3F5EB /* Blender Motion Capture */ = {
 			isa = PBXGroup;
 			children = (
+				C5A8C42C23E003CA0068C470 /* countDown.wav */,
 				C5A8C42923DF534B0068C470 /* character */,
 				C540478123CA2B2E00C3F5EB /* AppDelegate.swift */,
 				C540478323CA2B2E00C3F5EB /* SceneDelegate.swift */,
@@ -246,6 +249,7 @@
 			files = (
 				C5A8C42A23DF534B0068C470 /* character in Resources */,
 				C540479123CA2B3000C3F5EB /* LaunchScreen.storyboard in Resources */,
+				C5A8C42D23E003CB0068C470 /* countDown.wav in Resources */,
 				C540478E23CA2B3000C3F5EB /* Assets.xcassets in Resources */,
 				C540478923CA2B2E00C3F5EB /* Main.storyboard in Resources */,
 				C54047B523CA2C7A00C3F5EB /* Smiley.scn in Resources */,

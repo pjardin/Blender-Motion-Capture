@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,39 +12,39 @@
             <objects>
                 <viewController id="BYZ-38-t0r" userLabel="Facial Capture" customClass="FacialCaptureView" customModule="Blender_Motion_Capture" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvA-eR-oOZ">
-                                <rect key="frame" x="0.0" y="132" width="414" height="315"/>
+                                <rect key="frame" x="0.0" y="132" width="375" height="315"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="315" id="yBa-rj-rNc"/>
                                 </constraints>
                             </sceneKitView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMk-qo-puA" customClass="ARSCNView">
-                                <rect key="frame" x="0.0" y="455" width="414" height="338"/>
+                                <rect key="frame" x="0.0" y="455" width="375" height="254"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Facial Capture" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pi-c7-yUY">
-                                <rect key="frame" x="118" y="44" width="179" height="35"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facial Capture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pi-c7-yUY">
+                                <rect key="frame" x="0.0" y="44" width="375" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="your email here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w4L-Iz-f8L">
-                                <rect key="frame" x="20" y="87" width="374" height="34"/>
+                                <rect key="frame" x="16" y="87" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spy-hi-Kg3">
-                                <rect key="frame" x="290" y="801" width="111" height="61"/>
+                                <rect key="frame" x="255" y="717" width="111" height="61"/>
                                 <state key="normal" title="Motion Capture "/>
                                 <connections>
                                     <segue destination="cLW-68-Ybu" kind="show" id="JxV-hd-3aR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNo-7R-iNY">
-                                <rect key="frame" x="136" y="801" width="143" height="61"/>
+                                <rect key="frame" x="132" y="717" width="112" height="61"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="eqy-7k-aFN"/>
@@ -73,7 +73,7 @@
                             <constraint firstItem="w4L-Iz-f8L" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="cUs-ti-OQL"/>
                             <constraint firstItem="jvA-eR-oOZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gQs-lD-UpW"/>
                             <constraint firstItem="jvA-eR-oOZ" firstAttribute="top" secondItem="w4L-Iz-f8L" secondAttribute="bottom" constant="11" id="lhG-Cs-aeB"/>
-                            <constraint firstItem="2pi-c7-yUY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="o8R-aR-XOs"/>
+                            <constraint firstItem="2pi-c7-yUY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o8R-aR-XOs"/>
                             <constraint firstItem="jvA-eR-oOZ" firstAttribute="trailing" secondItem="VMk-qo-puA" secondAttribute="trailing" id="rPI-6o-oyV"/>
                             <constraint firstItem="spy-hi-Kg3" firstAttribute="top" secondItem="xNo-7R-iNY" secondAttribute="top" id="ryg-22-gVi"/>
                             <constraint firstItem="xNo-7R-iNY" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="sdk-1L-NCM"/>
@@ -98,22 +98,38 @@
             <objects>
                 <viewController id="cLW-68-Ybu" userLabel="Motion Capture " customClass="MotionCaptureView" customModule="Blender_Motion_Capture" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uXj-ck-DNw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoG-9d-9bh">
-                                <rect key="frame" x="0.0" y="91" width="414" height="634"/>
+                                <rect key="frame" x="0.0" y="91" width="375" height="550"/>
                             </arView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="your email here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="730-e1-DRA">
-                                <rect key="frame" x="20" y="49" width="374" height="34"/>
+                                <rect key="frame" x="16" y="49" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Motion Capture " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yya-xl-J8b">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf3-kU-YBz">
+                                <rect key="frame" x="0.0" y="663" width="115" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="YJz-GH-HL1"/>
+                                </constraints>
+                                <state key="normal" title="Facial Capture"/>
+                                <connections>
+                                    <action selector="Back:" destination="cLW-68-Ybu" eventType="touchUpInside" id="Wg2-yt-PvX"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtJ-XE-e9M">
-                                <rect key="frame" x="164" y="747" width="86" height="61"/>
+                                <rect key="frame" x="267" y="663" width="108" height="61"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="dyL-nn-o4T"/>
+                                    <constraint firstAttribute="width" constant="108" id="A48-1F-Z8o"/>
                                 </constraints>
                                 <state key="normal" title="record">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -124,40 +140,25 @@
                                     <action selector="click:" destination="cLW-68-Ybu" eventType="touchUpInside" id="z0D-Ex-cDh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Motion Capture " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yya-xl-J8b">
-                                <rect key="frame" x="107" y="0.0" width="200" height="35"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf3-kU-YBz">
-                                <rect key="frame" x="0.0" y="747" width="98" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="98" id="4cU-Ou-HL6"/>
-                                </constraints>
-                                <state key="normal" title="Facial Capture"/>
-                                <connections>
-                                    <action selector="Back:" destination="cLW-68-Ybu" eventType="touchUpInside" id="Wg2-yt-PvX"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="730-e1-DRA" firstAttribute="leading" secondItem="uXj-ck-DNw" secondAttribute="leadingMargin" id="2Gc-2q-KI4"/>
                             <constraint firstItem="WoG-9d-9bh" firstAttribute="leading" secondItem="odU-Yg-hN5" secondAttribute="leading" id="52x-IG-b8C"/>
-                            <constraint firstItem="BtJ-XE-e9M" firstAttribute="bottom" secondItem="odU-Yg-hN5" secondAttribute="bottom" id="70e-Mo-s74"/>
-                            <constraint firstItem="BtJ-XE-e9M" firstAttribute="leading" secondItem="cf3-kU-YBz" secondAttribute="trailing" constant="66" id="9eT-Oz-7a0"/>
-                            <constraint firstItem="yya-xl-J8b" firstAttribute="centerX" secondItem="730-e1-DRA" secondAttribute="centerX" id="G2D-NH-6Az"/>
-                            <constraint firstItem="WoG-9d-9bh" firstAttribute="centerX" secondItem="BtJ-XE-e9M" secondAttribute="centerX" id="IZI-xv-aHH"/>
-                            <constraint firstItem="730-e1-DRA" firstAttribute="top" secondItem="yya-xl-J8b" secondAttribute="bottom" constant="14" id="JYb-Zh-Ml8"/>
+                            <constraint firstItem="yya-xl-J8b" firstAttribute="trailing" secondItem="WoG-9d-9bh" secondAttribute="trailing" id="Gkq-QM-5L7"/>
                             <constraint firstItem="730-e1-DRA" firstAttribute="centerX" secondItem="WoG-9d-9bh" secondAttribute="centerX" id="MeF-ru-hCy"/>
-                            <constraint firstItem="cf3-kU-YBz" firstAttribute="leading" secondItem="WoG-9d-9bh" secondAttribute="leading" id="Nhj-Lo-wsV"/>
-                            <constraint firstItem="yya-xl-J8b" firstAttribute="top" secondItem="odU-Yg-hN5" secondAttribute="top" id="PgH-ed-IeU"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="cf3-kU-YBz" secondAttribute="bottom" constant="-3" id="cKG-nc-S3X"/>
-                            <constraint firstItem="BtJ-XE-e9M" firstAttribute="top" secondItem="WoG-9d-9bh" secondAttribute="bottom" constant="22" id="fkS-eS-JWm"/>
+                            <constraint firstItem="yya-xl-J8b" firstAttribute="top" secondItem="odU-Yg-hN5" secondAttribute="top" id="Q7t-mU-3UH"/>
+                            <constraint firstItem="730-e1-DRA" firstAttribute="top" secondItem="yya-xl-J8b" secondAttribute="bottom" constant="14" id="RzH-bJ-kxO"/>
+                            <constraint firstItem="odU-Yg-hN5" firstAttribute="trailing" secondItem="cf3-kU-YBz" secondAttribute="trailing" constant="260" id="S8z-wh-SCG"/>
+                            <constraint firstItem="BtJ-XE-e9M" firstAttribute="trailing" secondItem="WoG-9d-9bh" secondAttribute="trailing" id="SKP-7i-ddL"/>
+                            <constraint firstItem="yya-xl-J8b" firstAttribute="leading" secondItem="WoG-9d-9bh" secondAttribute="leading" id="W5O-Z1-VZV"/>
+                            <constraint firstItem="BtJ-XE-e9M" firstAttribute="top" secondItem="cf3-kU-YBz" secondAttribute="top" id="cHx-81-QI3"/>
+                            <constraint firstItem="cf3-kU-YBz" firstAttribute="leading" secondItem="WoG-9d-9bh" secondAttribute="leading" id="cNb-ak-CdI"/>
+                            <constraint firstItem="BtJ-XE-e9M" firstAttribute="firstBaseline" secondItem="cf3-kU-YBz" secondAttribute="baseline" id="cPe-26-p6V"/>
                             <constraint firstItem="730-e1-DRA" firstAttribute="trailing" secondItem="uXj-ck-DNw" secondAttribute="trailingMargin" id="fmB-hy-kP4"/>
+                            <constraint firstItem="cf3-kU-YBz" firstAttribute="top" secondItem="WoG-9d-9bh" secondAttribute="bottom" constant="22" id="iBG-uX-xiE"/>
+                            <constraint firstItem="cf3-kU-YBz" firstAttribute="bottom" secondItem="odU-Yg-hN5" secondAttribute="bottom" id="sqP-zQ-Jsa"/>
                             <constraint firstItem="WoG-9d-9bh" firstAttribute="top" secondItem="730-e1-DRA" secondAttribute="bottom" constant="8" id="tUI-jf-q1S"/>
-                            <constraint firstItem="cf3-kU-YBz" firstAttribute="top" secondItem="BtJ-XE-e9M" secondAttribute="top" id="wWA-sA-jOs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="odU-Yg-hN5"/>
                     </view>
@@ -170,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uZt-ym-PwD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928.98550724637687" y="138.61607142857142"/>
+            <point key="canvasLocation" x="928.79999999999995" y="138.17733990147784"/>
         </scene>
     </scenes>
 </document>
