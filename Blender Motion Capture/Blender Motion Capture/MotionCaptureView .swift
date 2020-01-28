@@ -96,6 +96,7 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     
     func initMotcap(){
         motcap = [
+        "bodyAnchor"     : [],
         "head"           : [],
         
         "leftFoot"       : [],
@@ -157,6 +158,7 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
                     let root = skeleton.modelTransform(for: ARSkeleton.JointName.root)
 
                     
+                    motcap["bodyAnchor"]?.append(bodyAnchor.transform.pos_eulerAngles)
                     
                     motcap["head"]?.append(head!.pos_eulerAngles)
                     
