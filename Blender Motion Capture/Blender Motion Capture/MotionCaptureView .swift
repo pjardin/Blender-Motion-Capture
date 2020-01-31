@@ -20,7 +20,7 @@ import MessageUI
 var motcap = [ [[Float]] ]()
 
 //let frameRate = 1.0/24
-
+var startingPos = [Float]()
 
 class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegate, MFMailComposeViewControllerDelegate {
 
@@ -144,8 +144,10 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
                         }
                         
                     }
-                    print(motSesion.count)
-                    
+
+                    motSesion.append(bodyAnchor.transform.pos)
+                    motSesion.append(bodyAnchor.transform.eulerAngles)
+
                     motcap.append(motSesion)
                     
                     
