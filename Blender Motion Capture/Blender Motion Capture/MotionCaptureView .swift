@@ -17,7 +17,7 @@ import Combine
 import MessageUI
 
 
-var motcap = [String: [[Float]] ]()
+var motcap = [ [[Float]] ]()
 
 //let frameRate = 1.0/24
 
@@ -46,11 +46,7 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
         UIApplication.shared.isIdleTimerDisabled = true
         super.viewDidAppear(animated)
         arView.session.delegate = self
-        
-        guard let device = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: .video, position: .front) else {
-            return
-        }
-        
+
         
         // If the iOS device doesn't support body tracking, raise a developer error for
         // this unhandled case.
@@ -95,20 +91,7 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     
     
     func initMotcap(){
-        motcap = [
-        "bodyAnchor"     : [],
-        "head"           : [],
-        
-        "leftFoot"       : [],
-        "leftHand"       : [],
-        "leftSholder"    : [],
-        
-        "rightFoot"      : [],
-        "rightHand"      : [],
-        "rightSholder"   : [],
-        
-        "root"           : []
-        ]
+        motcap = []
 
         
     }
@@ -145,32 +128,27 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
                     let skeleton = bodyAnchor.skeleton
 
                     //https://developer.apple.com/documentation/arkit/arskeletonjointnamehead?language=objc
-                    let head = skeleton.modelTransform(for: ARSkeleton.JointName.head)//localTransform
-                    
-                    let leftFoot = skeleton.modelTransform(for: ARSkeleton.JointName.leftFoot)
-                    let leftHand = skeleton.modelTransform(for: ARSkeleton.JointName.leftHand)
-                    let leftSholder = skeleton.modelTransform(for: ARSkeleton.JointName.leftShoulder)
 
-                    let rightFoot = skeleton.modelTransform(for: ARSkeleton.JointName.rightFoot)
-                    let rightHand = skeleton.modelTransform(for: ARSkeleton.JointName.rightHand)
-                    let rightSholder = skeleton.modelTransform(for: ARSkeleton.JointName.rightShoulder)
-
-                    let root = skeleton.modelTransform(for: ARSkeleton.JointName.root)
 
                     
-                    motcap["bodyAnchor"]?.append(bodyAnchor.transform.pos_eulerAngles)
+                    let jointTransformations = skeleton.jointModelTransforms
                     
-                    motcap["head"]?.append(head!.pos_eulerAngles)
+           
+                    var motSesion = [[Float]]()
                     
-                    motcap["leftFoot"]?.append(leftFoot!.pos_eulerAngles)
-                    motcap["leftHand"]?.append(leftHand!.pos_eulerAngles)
-                    motcap["leftSholder"]?.append(leftSholder!.pos_eulerAngles)
+                    for (i,jointTransform) in jointTransformations.enumerated() {
+                        if ( (i > 2 && i <= 4) || (i > 7 && i <= 9) || (i == 18 ) || (i >= 20 && i <= 22) || (i == 47 || i == 51) || (i >= 64 && i <= 66) ) || (i == 63 ) || (i == 19 ){
+                            motSesion.append(jointTransform.pos)
+                            print(i)
 
-                    motcap["rightFoot"]?.append(rightFoot!.pos_eulerAngles)
-                    motcap["rightHand"]?.append(rightHand!.pos_eulerAngles)
-                    motcap["rightSholder"]?.append(rightSholder!.pos_eulerAngles)
-
-                    motcap["root"]?.append(root!.pos_eulerAngles)
+                        }
+                        
+                    }
+                    print(motSesion.count)
+                    
+                    motcap.append(motSesion)
+                    
+                    
                 }
                 
                 time = newTime - (dif - frameRate) //this is to keep it at check.
@@ -243,7 +221,7 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
             mail.setMessageBody("<p>drag and drop to the blender addon!</p>", isHTML: true)
             
             //grab blendshape data
-            let JSONdata = try! JSONSerialization.data(withJSONObject: motcap, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let JSONdata = try! JSONSerialization.data(withJSONObject: motcap, options: JSONSerialization.WritingOptions.init())
             
             //https://www.iana.org/assignments/media-types/media-types.xhtml
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "motcap")
@@ -338,6 +316,32 @@ public extension matrix_float4x4 {
             return [x, y,z, pitch, yaw, roll]
         }
     }
+    
+    
+    var pos: [Float] {
+           get {
+
+               //https://stackoverflow.com/questions/45212598/convert-matrix-float4x4-to-x-y-z-space
+               
+               var x = columns.3.x;
+               var y = columns.3.y;
+               var z = columns.3.z;
+
+               if x.isNaN {
+                   x = 0;
+               }
+               
+               if y.isNaN {
+                   y = 0;
+               }
+               
+               if z.isNaN {
+                   z = 0;
+               }
+               
+               return [x, y,z,]
+           }
+       }
     
 }
 
