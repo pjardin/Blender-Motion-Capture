@@ -16,13 +16,14 @@ import Combine
 
 import MessageUI
 
+import ReplayKit
 
 var motcap = [ [[Float]] ]()
 
 //let frameRate = 1.0/24
 var startingPos = [Float]()
 
-class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegate, MFMailComposeViewControllerDelegate {
+class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegate, MFMailComposeViewControllerDelegate, RPPreviewViewControllerDelegate {
 
     @IBOutlet var arView: ARView!
     
@@ -41,6 +42,43 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     var character: BodyTrackedEntity?
     let characterOffset: SIMD3<Float> = [0, 0, 0] // [-1.0, 0, 0]Offset the character by one meter to the left
     let characterAnchor = AnchorEntity()
+    
+    let recorder = RPScreenRecorder.shared()
+
+    
+    var playAudio = false
+    
+    
+    @IBAction func playAudioSwitch(_ sender: UISwitch) {
+        
+        if playAudio == false {
+            playAudio = true
+        } else {
+            playAudio = false
+        }
+        
+        print(playAudio)
+        
+    }
+    
+    
+    
+    var screenRecord = false
+    
+    @IBAction func recordscreenswitch(_ sender: UISwitch) {
+        
+            if screenRecord == false {
+                screenRecord = true
+
+            } else {
+                screenRecord = false
+            }
+            
+            print(screenRecord)
+        
+    }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = true
@@ -172,28 +210,32 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     @IBAction func click(_ sender: UIButton) {
         if (recording == false){
         
-            let path = Bundle.main.path(forResource: "countDown", ofType:"wav")!
-                       let url = URL(fileURLWithPath: path)
-                       
-                       playerItem = AVPlayerItem(url: url as URL)
-                       NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
-
-                       player=AVPlayer(playerItem: playerItem!)
-                       player?.volume = 30
-                       player!.play()
-                       
-                       UIView.animate(withDuration: 1, delay: 0.0, options: [.curveEaseInOut, .repeat, .autoreverse, .allowUserInteraction], animations: {() -> Void in
-                           self.buttonsRecord.alpha = 0.0
-                           }, completion: {(finished: Bool) -> Void in
-                       })
+            if (screenRecord) {
+                recorder.startRecording()
+            }
             
+            let path = Bundle.main.path(forResource: "countDown", ofType:"wav")!
+            let url = URL(fileURLWithPath: path)
+
+            playerItem = AVPlayerItem(url: url as URL)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+
+            player=AVPlayer(playerItem: playerItem!)
+            player?.volume = 30
+            player!.play()
+
+            UIView.animate(withDuration: 1, delay: 0.0, options: [.curveEaseInOut, .repeat, .autoreverse, .allowUserInteraction], animations: {() -> Void in
+                self.buttonsRecord.alpha = 0.0
+                }, completion: {(finished: Bool) -> Void in
+            })
+
             
         } else {
             buttonsRecord.setTitle("record", for: .normal)
             buttonsRecord.backgroundColor = UIColor.green
             recording = false
 
-            sendEmail()
+            stopScreenRecording()
         }
     }
     
@@ -208,9 +250,54 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
         buttonsRecord.backgroundColor = UIColor.red
         recording = true
         
+        
+        let url = audioFilename
+        
+        if url != nil && playAudio{
+            playerItem = AVPlayerItem(url: url!)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlayingRecorded(sender:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+
+            player=AVPlayer(playerItem: playerItem!)
+            player?.volume = 30
+            player!.play()
+        
+        
+        }
     }
     
     
+    @objc func playerDidFinishPlayingRecorded(sender: Notification) {
+        
+        buttonsRecord.setTitle("record", for: .normal)
+        buttonsRecord.backgroundColor = UIColor.green
+        recording = false
+
+        stopScreenRecording()
+        
+    }
+    
+    
+    func stopScreenRecording() {
+        
+        if recorder.isRecording == false {
+                        sendEmail()
+        }
+        
+        recorder.stopRecording { [unowned self] (preview, error) in
+                       
+                       if let unwrappedPreview = preview {
+                           unwrappedPreview.previewControllerDelegate = self
+                           self.present(unwrappedPreview, animated: true)
+                       }
+            
+        }
+
+    }
+    
+    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+        dismiss(animated: true)
+        sendEmail()
+    }
     
     func sendEmail(){
         print("send Email!!")
