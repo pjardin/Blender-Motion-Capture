@@ -18,10 +18,7 @@ import MessageUI
 
 import ReplayKit
 
-var motcap = [ [[Float]] ]()
-
-//let frameRate = 1.0/24
-var startingPos = [Float]()
+var motcap = [ [[Int]] ]()
 
 class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegate, MFMailComposeViewControllerDelegate, RPPreviewViewControllerDelegate {
 
@@ -90,6 +87,12 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
         // this unhandled case.
         guard ARBodyTrackingConfiguration.isSupported else {
             fatalError("This feature is only supported on devices with an A12 chip")
+            
+            let alertController = UIAlertController(title: "ERROR!", message: "This feature is only supported on devices with an A12 chip! Apple is a complete pain Sorry! :(", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Close ERROR", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
         }
 
         // Run a body tracking configration.
@@ -130,12 +133,16 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     
     func initMotcap(){
         motcap = []
-
+        original_time = CACurrentMediaTime();
+        curent_frame = -1;
         
     }
     
     
-    var time = CACurrentMediaTime();
+     
+   var curent_frame = -1;
+   var original_time = CACurrentMediaTime();
+       
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         for anchor in anchors {
             guard let bodyAnchor = anchor as? ARBodyAnchor else { continue }
@@ -158,27 +165,25 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
             
             let newTime = CACurrentMediaTime()
             
-            let dif = newTime - time
+            let new_frame = Int( (newTime - original_time) / frameRate );
+             
+             
+            if ( curent_frame < new_frame && self.recording == true){
             
-            if (  dif >=  frameRate ){
-            
-                if (self.recording == true){
                     let skeleton = bodyAnchor.skeleton
 
                     //https://developer.apple.com/documentation/arkit/arskeletonjointnamehead?language=objc
-
 
                     
                     let jointTransformations = skeleton.jointModelTransforms
                     
            
-                    var motSesion = [[Float]]()
+                    var motSesion = [[Int]]()
                     
                     for (i,jointTransform) in jointTransformations.enumerated() {
                         if ( (i > 2 && i <= 4) || (i > 7 && i <= 9) || (i == 18 ) || (i >= 20 && i <= 22) || (i == 47 || i == 51) || (i >= 64 && i <= 66) ) || (i == 63 ) || (i == 19 ){
                             motSesion.append(jointTransform.pos)
                             print(i)
-
                         }
                         
                     }
@@ -189,11 +194,9 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
                     motcap.append(motSesion)
                     
                     
-                }
-                
-                time = newTime - (dif - frameRate) //this is to keep it at check.
-                
             }
+                
+
             
 
         }
@@ -320,7 +323,13 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
             
             present(mail, animated: true)
         } else {
-            // show failure alert
+            
+            let alertController = UIAlertController(title: "ERROR!", message: "You can't send mail! You need have an apple mail account set up on the phone! Sorry! :(", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Close ERROR", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
+
         }
     }
     
@@ -339,75 +348,8 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
 //https://michael-martinez.fr/arkit-transform-matrices-quaternions-and-related-conversions/
 public extension matrix_float4x4 {
 
-
-        //return [x, y, z, pitch, yaw, roll]
-        var pos_eulerAngles: [Float] {
-        get {
-            //first we get the quaternion from m00...m22
-            //see http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
-            let qw = sqrt(1 + self.columns.0.x + self.columns.1.y + self.columns.2.z) / 2.0
-            let qx = (self.columns.2.y - self.columns.1.z) / (qw * 4.0)
-            let qy = (self.columns.0.z - self.columns.2.x) / (qw * 4.0)
-            let qz = (self.columns.1.x - self.columns.0.y) / (qw * 4.0)
-
-            //then we deduce euler angles with some cosines
-            //see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
-            // roll (x-axis rotation)
-            let sinr = +2.0 * (qw * qx + qy * qz)
-            let cosr = +1.0 - 2.0 * (qx * qx + qy * qy)
-            var roll = atan2(sinr, cosr)
-
-            // pitch (y-axis rotation)
-            let sinp = +2.0 * (qw * qy - qz * qx)
-            var pitch: Float
-            if abs(sinp) >= 1 {
-                 pitch = copysign(Float.pi / 2, sinp)
-            } else {
-                pitch = asin(sinp)
-            }
-
-            // yaw (z-axis rotation)
-            let siny = +2.0 * (qw * qz + qx * qy)
-            let cosy = +1.0 - 2.0 * (qy * qy + qz * qz)
-            var yaw = atan2(siny, cosy)
-
-            //https://stackoverflow.com/questions/45212598/convert-matrix-float4x4-to-x-y-z-space
-            
-            var x = columns.3.x;
-            var y = columns.3.y;
-            var z = columns.3.z;
-
-            if x.isNaN {
-                x = 0;
-            }
-            
-            if y.isNaN {
-                y = 0;
-            }
-            
-            if z.isNaN {
-                z = 0;
-            }
-            
-            if pitch.isNaN {
-                pitch = 0;
-            }
-            
-            if yaw.isNaN {
-                yaw = 0;
-            }
-            
-            if roll.isNaN {
-                roll = 0;
-            }
-            
-            
-            return [x, y,z, pitch, yaw, roll]
-        }
-    }
     
-    
-    var pos: [Float] {
+    var pos: [Int] {
            get {
 
                //https://stackoverflow.com/questions/45212598/convert-matrix-float4x4-to-x-y-z-space
@@ -428,7 +370,9 @@ public extension matrix_float4x4 {
                    z = 0;
                }
                
-               return [x, y,z,]
+               return [ Int(round(x * 100)),
+                        Int(round(y * 100)),
+                        Int(round(z * 100))]
            }
        }
     

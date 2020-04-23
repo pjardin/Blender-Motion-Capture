@@ -19,10 +19,10 @@ import ReplayKit
 //https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation
 var blendShape = [String: [[Int]] ]()
 
-var headAngles = [[Float]]()
+var headAngles = [[Int]]()
 
-var leftEyeAngles = [[Float]]()
-var rightEyeAngles = [[Float]]()
+var leftEyeAngles = [[Int]]()
+var rightEyeAngles = [[Int]]()
 
 
 
@@ -255,6 +255,7 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
         buttonsRecord.setTitle("stop", for: .normal)
         buttonsRecord.backgroundColor = UIColor.red
         recording = true
+        initBlendShapes()
         startRecording()
         
     }
@@ -317,7 +318,7 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "head")
             
             //clear head data
-            headAngles = [[Float]]()
+            headAngles = [[Int]]()
             
             
             //grab leftEyeAngles data
@@ -327,7 +328,7 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "leftEye")
             
             //clear leftEyeAngles data
-            leftEyeAngles = [[Float]]()
+            leftEyeAngles = [[Int]]()
             
             
             //grab rightEyeAngles data
@@ -337,12 +338,17 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "rightEye")
             
             //clear rightEyeAngles data
-            rightEyeAngles = [[Float]]()
+            rightEyeAngles = [[Int]]()
             
             
             present(mail, animated: true)
         } else {
-            // show failure alert
+                        
+            let alertController = UIAlertController(title: "ERROR!", message: "You can't send mail! You need have an apple mail account set up on the phone! Sorry! :(", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Close ERROR", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -385,352 +391,352 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
 
     
     var frameCount = 0
-    var time = CACurrentMediaTime();
+    var curent_frame = -1;
+    var original_time = CACurrentMediaTime();
     
     //https://developer.apple.com/documentation/arkit/arfaceanchor
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
         
+        //for smily
+        DispatchQueue.main.async {
+            self.model.eulerAngles = self.calculateEulerAngles(faceAnchor)
+
+            for (key, value) in faceAnchor.blendShapes {
+                if let fValue = value as? Float {
+                    self.head.morpher?.setWeight(CGFloat(fValue), forTargetNamed: key.rawValue)
+                }
+            }
+        }
         
         let newTime = CACurrentMediaTime()
+        let new_frame = Int( (newTime - original_time) / frameRate );
         
-        let dif = newTime - time
         
-        if (  dif >=  frameRate ){
+        if ( curent_frame < new_frame && self.recording == true){
 
             DispatchQueue.main.async {
-
+                self.curent_frame = new_frame;
+                
+                blendShape["frame"]!.append( [new_frame] )
+                
                 let blendShapes = faceAnchor.blendShapes
-                // This will only work correctly if the shape keys are given the exact same name as the blendshape names
+
                 for (key, value) in blendShapes {
-                    if let fValue = value as? Float {
-                        self.head.morpher?.setWeight(CGFloat(fValue), forTargetNamed: key.rawValue)
+
+                    let v =  Int(round( Float(truncating: value) * 100) ) //   /100;
+
+                    if (key.rawValue == "eyeSquint_L" ){
+                        blendShape["Bone.055"]!.append([v])
                     }
-                    if (self.recording == true){
-                        
-                        let v =  Int(round( Float(truncating: value) * 100) ) //   /100;
-
-                        if (key.rawValue == "eyeSquint_L" ){
-                            blendShape["Bone.055"]!.append([v])
-                        }
-                        else if (key.rawValue == "eyeSquint_R" ){
-                            blendShape["Bone.056"]!.append([v])
-                        }
-                        else if (key.rawValue == "mouthClose" ){
-                            blendShape["Bone.054"]!.append([-v])
-                        }
-                        else if (key.rawValue == "mouthFunnel" ){
-                            blendShape["Bone.053"]!.append([-v])
-                        }
-                        else if (key.rawValue == "mouthPucker" ){
-                            blendShape["Bone.052"]!.append([-v])
-                        }
-                        else if (key.rawValue == "mouthLowerDown_L" ){
-                            blendShape["Bone.037"]!.append([-v])
-                        }
-                        else if (key.rawValue == "mouthLowerDown_R" ){
-                            blendShape["Bone.036"]!.append([-v])
-                        }
-                        else if (key.rawValue == "mouthUpperUp_L" ){
-                            blendShape["Bone.044"]!.append([v])
-                        }
-                        else if (key.rawValue == "mouthUpperUp_R" ){
-                            blendShape["Bone.045"]!.append([v])
-                        }
-                        else if (key.rawValue == "browDown_L" ){
-                            blendShape["Bone.062"]!.append([-v])
-                        }
-                        else if (key.rawValue == "browDown_R" ){
-                            blendShape["Bone.064"]!.append([-v])
-                        }
-                        else if (key.rawValue == "browInnerUp" ){
-                            blendShape["Bone.063"]!.append([v])
-                        }
-                        else if (key.rawValue == "browOuterUp_L" ){
-                            blendShape["Bone.061"]!.append([v])
-                        }
-                        else if (key.rawValue == "browOuterUp_R" ){
-                            blendShape["Bone.065"]!.append([v])
-                        }
-                        else if (key.rawValue == "cheekPuff" ){
-                            blendShape["Bone.050"]!.append([-v])
-                        }
-                        else if (key.rawValue == "cheekSquint_L" ){
-                            blendShape["Bone.046"]!.append([v])
-                        }
-                        else if (key.rawValue == "cheekSquint_R" ){
-                            blendShape["Bone.049"]!.append([v])
-                        }
-                        else if (key.rawValue == "noseSneer_L" ){
-                            blendShape["Bone.047"]!.append([v])
-                        }
-                        else if (key.rawValue == "noseSneer_R" ){
-                            blendShape["Bone.048"]!.append([v])
-                        }
-                        else if (key.rawValue == "tongueOut" ){
-                            blendShape["Bone.051"]!.append([-v])
-                        }
-                        //------------------------------------
-                        else if (key.rawValue == "eyeBlink_L" ){
-                            if (blendShape["Bone.059"]!.count != self.frameCount + 1){
-                                blendShape["Bone.059"]!.append([-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.059"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "eyeWide_L" ){
-
-                            if (blendShape["Bone.059"]!.count != self.frameCount + 1){
-                                blendShape["Bone.059"]!.append([v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.059"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "eyeBlink_R" ){
-                            if (blendShape["Bone.060"]!.count != self.frameCount + 1){
-                                blendShape["Bone.060"]!.append([-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.060"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "eyeWide_R" ){
-                            if (blendShape["Bone.060"]!.count != self.frameCount + 1){
-                                blendShape["Bone.060"]!.append([v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.060"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "mouthLeft" ){
-                            if (blendShape["Bone.040"]!.count != self.frameCount + 1){
-                                blendShape["Bone.040"]!.append([-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.040"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "mouthRight" ){
-                            if (blendShape["Bone.040"]!.count != self.frameCount + 1){
-                                blendShape["Bone.040"]!.append([v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.040"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "mouthStretch_L" ){
-                            if (blendShape["Bone.038"]!.count != self.frameCount + 1){
-                                blendShape["Bone.038"]!.append([-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.038"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "mouthPress_L" ){
-                            if (blendShape["Bone.038"]!.count != self.frameCount + 1){
-                                blendShape["Bone.038"]!.append([v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.038"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "mouthStretch_R" ){
-                            if (blendShape["Bone.042"]!.count != self.frameCount + 1){
-                                blendShape["Bone.042"]!.append([-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.042"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "mouthPress_R" ){
-                            if (blendShape["Bone.042"]!.count != self.frameCount + 1){
-                                blendShape["Bone.042"]!.append([v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.042"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "mouthRollLower" ){
-                            if (blendShape["Bone.035"]!.count != self.frameCount + 1){
-                                blendShape["Bone.035"]!.append([-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.035"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "mouthRollUpper" ){
-                            if (blendShape["Bone.035"]!.count != self.frameCount + 1){
-                                blendShape["Bone.035"]!.append([v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.035"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "mouthShrugLower" ){
-                            if (blendShape["Bone.043"]!.count != self.frameCount + 1){
-                                blendShape["Bone.043"]!.append([-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.043"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "mouthShrugUpper" ){
-                            if (blendShape["Bone.043"]!.count != self.frameCount + 1){
-                                blendShape["Bone.043"]!.append([v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.043"]?[self.frameCount][0] += v
-                            }
-                        }
-                        
-                        //======================================
-                            
-                        else if (key.rawValue == "eyeLookDown_L" ){
-                            if (blendShape["Bone.057"]!.count != self.frameCount + 1){
-                                blendShape["Bone.057"]!.append([0, -v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.057"]?[self.frameCount][1] += -v
-                            }
-                        }
-                        else if (key.rawValue == "eyeLookIn_L" ){
-                            if (blendShape["Bone.057"]!.count != self.frameCount + 1){
-                                blendShape["Bone.057"]!.append([v, 0])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.057"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "eyeLookOut_L" ){
-                            if (blendShape["Bone.057"]!.count != self.frameCount + 1){
-                                blendShape["Bone.057"]!.append([-v, 0])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.057"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "eyeLookUp_L" ){
-                            if (blendShape["Bone.057"]!.count != self.frameCount + 1){
-                                blendShape["Bone.057"]!.append([0, v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.057"]?[self.frameCount][1] += v
-                            }
-                        }
-                        //-------------------------------------
-                        else if (key.rawValue == "eyeLookDown_R" ){
-                            
-                            if (blendShape["Bone.058"]!.count != self.frameCount + 1){
-                                blendShape["Bone.058"]!.append([0,-v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.058"]?[self.frameCount][1] += -v
-                            }
-                        }
-                        else if (key.rawValue == "eyeLookIn_R" ){
-                            if (blendShape["Bone.058"]!.count != self.frameCount + 1){
-                                blendShape["Bone.058"]!.append([-v, 0])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.058"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "eyeLookOut_R" ){
-                            if (blendShape["Bone.058"]!.count != self.frameCount + 1){
-                                blendShape["Bone.058"]!.append([v, 0])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.058"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "eyeLookUp_R" ){
-                            if (blendShape["Bone.058"]!.count != self.frameCount + 1){
-                                blendShape["Bone.058"]!.append([0,v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.058"]?[self.frameCount][1] += v
-                            }
-                        }
-                        //-------------------------------------
-                        else if (key.rawValue == "jawForward" ){
-                            if (blendShape["Bone.034"]!.count != self.frameCount + 1){
-                                blendShape["Bone.034"]!.append( [0, v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.034"]?[self.frameCount][1] += v
-                            }
-                        }
-                        else if (key.rawValue == "jawLeft" ){
-                            if (blendShape["Bone.034"]!.count != self.frameCount + 1){
-                                blendShape["Bone.034"]!.append([-v, 0])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.034"]?[self.frameCount][0] += -v
-                            }
-                        }
-                        else if (key.rawValue == "jawRight" ){
-                            if (blendShape["Bone.034"]!.count != self.frameCount + 1){
-                                blendShape["Bone.034"]!.append([v, 0])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.034"]?[self.frameCount][0] += v
-                            }
-                        }
-                        else if (key.rawValue == "jawOpen" ){
-                            if (blendShape["Bone.034"]!.count != self.frameCount + 1){
-                                blendShape["Bone.034"]!.append([0, -v])
-                            }
-                            else if ( v != 0){
-                                blendShape["Bone.034"]?[self.frameCount][1] += -v
-                            }
-                        }
-                        //-------------------------------------
-                        else if (key.rawValue == "mouthSmile_L" ){
-                            blendShape["Bone.068"]!.append([-v])
-                        }
-                        else if (key.rawValue == "mouthFrown_L" ){
-                            blendShape["Bone.070"]!.append([-v])
-                        }
-                        else if (key.rawValue == "mouthDimple_L" ){
-                            blendShape["Bone.039"]!.append([-v])
-                        }
-                            
-                        //-------------------------------------
-                        else if (key.rawValue == "mouthSmile_R" ){
-                            blendShape["Bone.072"]!.append([v])
-                        }
-                        else if (key.rawValue == "mouthFrown_R" ){
-                            blendShape["Bone.074"]!.append([v])
-                        }
-                        else if (key.rawValue == "mouthDimple_R" ){
-                            blendShape["Bone.041"]!.append([v])
-                        }
-                        //-------------------------------------
-                        
-                       
+                    else if (key.rawValue == "eyeSquint_R" ){
+                        blendShape["Bone.056"]!.append([v])
                     }
-                }
-                
-                
-                self.model.eulerAngles = self.calculateEulerAngles(faceAnchor)
-                
-                if (self.recording == true){
+                    else if (key.rawValue == "mouthClose" ){
+                        blendShape["Bone.054"]!.append([-v])
+                    }
+                    else if (key.rawValue == "mouthFunnel" ){
+                        blendShape["Bone.053"]!.append([-v])
+                    }
+                    else if (key.rawValue == "mouthPucker" ){
+                        blendShape["Bone.052"]!.append([-v])
+                    }
+                    else if (key.rawValue == "mouthLowerDown_L" ){
+                        blendShape["Bone.037"]!.append([-v])
+                    }
+                    else if (key.rawValue == "mouthLowerDown_R" ){
+                        blendShape["Bone.036"]!.append([-v])
+                    }
+                    else if (key.rawValue == "mouthUpperUp_L" ){
+                        blendShape["Bone.044"]!.append([v])
+                    }
+                    else if (key.rawValue == "mouthUpperUp_R" ){
+                        blendShape["Bone.045"]!.append([v])
+                    }
+                    else if (key.rawValue == "browDown_L" ){
+                        blendShape["Bone.062"]!.append([-v])
+                    }
+                    else if (key.rawValue == "browDown_R" ){
+                        blendShape["Bone.064"]!.append([-v])
+                    }
+                    else if (key.rawValue == "browInnerUp" ){
+                        blendShape["Bone.063"]!.append([v])
+                    }
+                    else if (key.rawValue == "browOuterUp_L" ){
+                        blendShape["Bone.061"]!.append([v])
+                    }
+                    else if (key.rawValue == "browOuterUp_R" ){
+                        blendShape["Bone.065"]!.append([v])
+                    }
+                    else if (key.rawValue == "cheekPuff" ){
+                        blendShape["Bone.050"]!.append([-v])
+                    }
+                    else if (key.rawValue == "cheekSquint_L" ){
+                        blendShape["Bone.046"]!.append([v])
+                    }
+                    else if (key.rawValue == "cheekSquint_R" ){
+                        blendShape["Bone.049"]!.append([v])
+                    }
+                    else if (key.rawValue == "noseSneer_L" ){
+                        blendShape["Bone.047"]!.append([v])
+                    }
+                    else if (key.rawValue == "noseSneer_R" ){
+                        blendShape["Bone.048"]!.append([v])
+                    }
+                    else if (key.rawValue == "tongueOut" ){
+                        blendShape["Bone.051"]!.append([-v])
+                    }
+                    //------------------------------------
+                    else if (key.rawValue == "eyeBlink_L" ){
+                        if (blendShape["Bone.059"]!.count != self.frameCount + 1){
+                            blendShape["Bone.059"]!.append([-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.059"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "eyeWide_L" ){
 
-                    headAngles.append(faceAnchor.transform.eulerAngles)
-                    leftEyeAngles.append(faceAnchor.leftEyeTransform.eulerAngles)
-                    rightEyeAngles.append(faceAnchor.rightEyeTransform.eulerAngles)
+                        if (blendShape["Bone.059"]!.count != self.frameCount + 1){
+                            blendShape["Bone.059"]!.append([v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.059"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "eyeBlink_R" ){
+                        if (blendShape["Bone.060"]!.count != self.frameCount + 1){
+                            blendShape["Bone.060"]!.append([-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.060"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "eyeWide_R" ){
+                        if (blendShape["Bone.060"]!.count != self.frameCount + 1){
+                            blendShape["Bone.060"]!.append([v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.060"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "mouthLeft" ){
+                        if (blendShape["Bone.040"]!.count != self.frameCount + 1){
+                            blendShape["Bone.040"]!.append([-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.040"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "mouthRight" ){
+                        if (blendShape["Bone.040"]!.count != self.frameCount + 1){
+                            blendShape["Bone.040"]!.append([v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.040"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "mouthStretch_L" ){
+                        if (blendShape["Bone.038"]!.count != self.frameCount + 1){
+                            blendShape["Bone.038"]!.append([-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.038"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "mouthPress_L" ){
+                        if (blendShape["Bone.038"]!.count != self.frameCount + 1){
+                            blendShape["Bone.038"]!.append([v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.038"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "mouthStretch_R" ){
+                        if (blendShape["Bone.042"]!.count != self.frameCount + 1){
+                            blendShape["Bone.042"]!.append([-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.042"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "mouthPress_R" ){
+                        if (blendShape["Bone.042"]!.count != self.frameCount + 1){
+                            blendShape["Bone.042"]!.append([v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.042"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "mouthRollLower" ){
+                        if (blendShape["Bone.035"]!.count != self.frameCount + 1){
+                            blendShape["Bone.035"]!.append([-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.035"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "mouthRollUpper" ){
+                        if (blendShape["Bone.035"]!.count != self.frameCount + 1){
+                            blendShape["Bone.035"]!.append([v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.035"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "mouthShrugLower" ){
+                        if (blendShape["Bone.043"]!.count != self.frameCount + 1){
+                            blendShape["Bone.043"]!.append([-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.043"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "mouthShrugUpper" ){
+                        if (blendShape["Bone.043"]!.count != self.frameCount + 1){
+                            blendShape["Bone.043"]!.append([v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.043"]?[self.frameCount][0] += v
+                        }
+                    }
                     
-                    self.frameCount += 1
-
+                    //======================================
+                        
+                    else if (key.rawValue == "eyeLookDown_L" ){
+                        if (blendShape["Bone.057"]!.count != self.frameCount + 1){
+                            blendShape["Bone.057"]!.append([0, -v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.057"]?[self.frameCount][1] += -v
+                        }
+                    }
+                    else if (key.rawValue == "eyeLookIn_L" ){
+                        if (blendShape["Bone.057"]!.count != self.frameCount + 1){
+                            blendShape["Bone.057"]!.append([v, 0])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.057"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "eyeLookOut_L" ){
+                        if (blendShape["Bone.057"]!.count != self.frameCount + 1){
+                            blendShape["Bone.057"]!.append([-v, 0])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.057"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "eyeLookUp_L" ){
+                        if (blendShape["Bone.057"]!.count != self.frameCount + 1){
+                            blendShape["Bone.057"]!.append([0, v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.057"]?[self.frameCount][1] += v
+                        }
+                    }
+                    //-------------------------------------
+                    else if (key.rawValue == "eyeLookDown_R" ){
+                        
+                        if (blendShape["Bone.058"]!.count != self.frameCount + 1){
+                            blendShape["Bone.058"]!.append([0,-v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.058"]?[self.frameCount][1] += -v
+                        }
+                    }
+                    else if (key.rawValue == "eyeLookIn_R" ){
+                        if (blendShape["Bone.058"]!.count != self.frameCount + 1){
+                            blendShape["Bone.058"]!.append([-v, 0])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.058"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "eyeLookOut_R" ){
+                        if (blendShape["Bone.058"]!.count != self.frameCount + 1){
+                            blendShape["Bone.058"]!.append([v, 0])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.058"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "eyeLookUp_R" ){
+                        if (blendShape["Bone.058"]!.count != self.frameCount + 1){
+                            blendShape["Bone.058"]!.append([0,v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.058"]?[self.frameCount][1] += v
+                        }
+                    }
+                    //-------------------------------------
+                    else if (key.rawValue == "jawForward" ){
+                        if (blendShape["Bone.034"]!.count != self.frameCount + 1){
+                            blendShape["Bone.034"]!.append( [0, v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.034"]?[self.frameCount][1] += v
+                        }
+                    }
+                    else if (key.rawValue == "jawLeft" ){
+                        if (blendShape["Bone.034"]!.count != self.frameCount + 1){
+                            blendShape["Bone.034"]!.append([-v, 0])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.034"]?[self.frameCount][0] += -v
+                        }
+                    }
+                    else if (key.rawValue == "jawRight" ){
+                        if (blendShape["Bone.034"]!.count != self.frameCount + 1){
+                            blendShape["Bone.034"]!.append([v, 0])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.034"]?[self.frameCount][0] += v
+                        }
+                    }
+                    else if (key.rawValue == "jawOpen" ){
+                        if (blendShape["Bone.034"]!.count != self.frameCount + 1){
+                            blendShape["Bone.034"]!.append([0, -v])
+                        }
+                        else if ( v != 0){
+                            blendShape["Bone.034"]?[self.frameCount][1] += -v
+                        }
+                    }
+                    //-------------------------------------
+                    else if (key.rawValue == "mouthSmile_L" ){
+                        blendShape["Bone.068"]!.append([-v])
+                    }
+                    else if (key.rawValue == "mouthFrown_L" ){
+                        blendShape["Bone.070"]!.append([-v])
+                    }
+                    else if (key.rawValue == "mouthDimple_L" ){
+                        blendShape["Bone.039"]!.append([-v])
+                    }
+                        
+                    //-------------------------------------
+                    else if (key.rawValue == "mouthSmile_R" ){
+                        blendShape["Bone.072"]!.append([v])
+                    }
+                    else if (key.rawValue == "mouthFrown_R" ){
+                        blendShape["Bone.074"]!.append([v])
+                    }
+                    else if (key.rawValue == "mouthDimple_R" ){
+                        blendShape["Bone.041"]!.append([v])
+                    }
+                    //-------------------------------------
+                    
+                   
+                
                 }
 
+                headAngles.append(faceAnchor.transform.eulerAngles)
+                leftEyeAngles.append(faceAnchor.leftEyeTransform.eulerAngles)
+                rightEyeAngles.append(faceAnchor.rightEyeTransform.eulerAngles)
                 
+                self.frameCount += 1;
                 
             }
-            
-            time = newTime - (dif - frameRate) //this is to keep it at check.
+                        
             
         }
                 
@@ -739,8 +745,12 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
     
     func initBlendShapes(){
         frameCount = 0;
+        original_time = CACurrentMediaTime();
+        curent_frame = -1;
+
         
-        blendShape = ["Bone.059" : [],
+        blendShape = ["frame": [],
+        "Bone.059" : [],
         "Bone.057" : [],
         "Bone.055" : [],
         "Bone.060" : [],
@@ -795,7 +805,7 @@ public extension matrix_float4x4 {
 }
 
 /// Retrieve euler angles from a quaternion matrix
-    var eulerAngles: [Float] {
+    var eulerAngles: [Int] {
     get {
         //first we get the quaternion from m00...m22
         //see http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
@@ -825,10 +835,10 @@ public extension matrix_float4x4 {
         let cosy = +1.0 - 2.0 * (qy * qy + qz * qz)
         let yaw = atan2(siny, cosy)
 
-        
-        let angles = [pitch,
-                      yaw,
-                      roll]
+
+        let angles = [Int(round(pitch * 100) ),
+                      Int(round(yaw * 100) ),
+                      Int(round(roll * 100) )]
         
         return angles
     }

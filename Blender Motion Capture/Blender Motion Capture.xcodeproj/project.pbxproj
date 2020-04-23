@@ -455,14 +455,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UTS963Q4SJ;
 				INFOPLIST_FILE = "Blender Motion Capture/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.31;
+				MARKETING_VERSION = 1.40;
 				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-Capture";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -475,14 +475,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UTS963Q4SJ;
 				INFOPLIST_FILE = "Blender Motion Capture/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.31;
+				MARKETING_VERSION = 1.40;
 				PRODUCT_BUNDLE_IDENTIFIER = "Jardin-Labs.Blender-Motion-Capture";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
