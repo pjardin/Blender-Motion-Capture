@@ -19,10 +19,10 @@ import ReplayKit
 //https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation
 var blendShape = [String: [[Int]] ]()
 
-var headAngles = [[Int]]()
+var headAngles = [ String: [[Int]]]()
 
-var leftEyeAngles = [[Int]]()
-var rightEyeAngles = [[Int]]()
+var leftEyeAngles = [ String: [[Int]]]()
+var rightEyeAngles = [ String: [[Int]]]()
 
 
 
@@ -308,38 +308,26 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
             //https://www.iana.org/assignments/media-types/media-types.xhtml
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "blendShapes")
             
-            //clear blendShape data
-            initBlendShapes()
-            
             //grab head data
-            JSONdata = try! JSONSerialization.data(withJSONObject: headAngles, options: JSONSerialization.WritingOptions.prettyPrinted)
+            JSONdata = try! JSONSerialization.data(withJSONObject: headAngles, options: JSONSerialization.WritingOptions.init())
             
             //https://www.iana.org/assignments/media-types/media-types.xhtml
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "head")
             
-            //clear head data
-            headAngles = [[Int]]()
-            
-            
             //grab leftEyeAngles data
-            JSONdata = try! JSONSerialization.data(withJSONObject: leftEyeAngles, options: JSONSerialization.WritingOptions.prettyPrinted)
+            JSONdata = try! JSONSerialization.data(withJSONObject: leftEyeAngles, options: JSONSerialization.WritingOptions.init())
             
             //https://www.iana.org/assignments/media-types/media-types.xhtml
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "leftEye")
             
-            //clear leftEyeAngles data
-            leftEyeAngles = [[Int]]()
-            
-            
             //grab rightEyeAngles data
-            JSONdata = try! JSONSerialization.data(withJSONObject: rightEyeAngles, options: JSONSerialization.WritingOptions.prettyPrinted)
+            JSONdata = try! JSONSerialization.data(withJSONObject: rightEyeAngles, options: JSONSerialization.WritingOptions.init())
             
             //https://www.iana.org/assignments/media-types/media-types.xhtml
             mail.addAttachmentData(JSONdata as Data, mimeType: "application/json", fileName: "rightEye")
-            
-            //clear rightEyeAngles data
-            rightEyeAngles = [[Int]]()
-            
+
+            //clear blendShape data
+            initBlendShapes()
             
             present(mail, animated: true)
         } else {
@@ -729,9 +717,17 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
                 
                 }
 
-                headAngles.append(faceAnchor.transform.eulerAngles)
-                leftEyeAngles.append(faceAnchor.leftEyeTransform.eulerAngles)
-                rightEyeAngles.append(faceAnchor.rightEyeTransform.eulerAngles)
+                headAngles["head"]?.append(faceAnchor.transform.eulerAngles)
+                headAngles["frame"]!.append( [new_frame] )
+
+                
+                leftEyeAngles["eye"]?.append(faceAnchor.leftEyeTransform.eulerAngles)
+                leftEyeAngles["frame"]!.append( [new_frame] )
+
+                
+                rightEyeAngles["eye"]?.append(faceAnchor.rightEyeTransform.eulerAngles)
+                rightEyeAngles["frame"]!.append( [new_frame] )
+
                 
                 self.frameCount += 1;
                 
@@ -744,6 +740,14 @@ class FacialCaptureView: UIViewController, UITextFieldDelegate, AVAudioRecorderD
     }
     
     func initBlendShapes(){
+        
+        headAngles = ["frame": [], "head" : []]
+
+        leftEyeAngles = ["frame": [], "eye" : []]
+        rightEyeAngles = ["frame": [], "eye" : []]
+
+
+        
         frameCount = 0;
         original_time = CACurrentMediaTime();
         curent_frame = -1;

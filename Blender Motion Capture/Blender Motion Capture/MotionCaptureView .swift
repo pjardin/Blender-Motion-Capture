@@ -18,7 +18,7 @@ import MessageUI
 
 import ReplayKit
 
-var motcap = [ [[Int]] ]()
+var motcap = [String: [[ [Int] ]] ]()
 
 class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegate, MFMailComposeViewControllerDelegate, RPPreviewViewControllerDelegate {
 
@@ -132,7 +132,7 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
     
     
     func initMotcap(){
-        motcap = []
+        motcap = ["frame": [], "moto" : []]
         original_time = CACurrentMediaTime();
         curent_frame = -1;
         
@@ -191,8 +191,9 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
                     motSesion.append(bodyAnchor.transform.pos)
                     motSesion.append(bodyAnchor.transform.eulerAngles)
 
-                    motcap.append(motSesion)
-                    
+                    motcap["moto"]?.append(motSesion)
+                    motcap["frame"]!.append( [[new_frame]] )
+
                     
             }
                 
@@ -370,9 +371,9 @@ public extension matrix_float4x4 {
                    z = 0;
                }
                
-               return [ Int(round(x * 100)),
-                        Int(round(y * 100)),
-                        Int(round(z * 100))]
+               return [ Int(round(x * 100000)),
+                        Int(round(y * 100000)),
+                        Int(round(z * 100000))]
            }
        }
     
