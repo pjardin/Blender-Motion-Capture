@@ -253,7 +253,7 @@ class MotionCaptureView: UIViewController, UITextFieldDelegate, ARSessionDelegat
         buttonsRecord.setTitle("stop", for: .normal)
         buttonsRecord.backgroundColor = UIColor.red
         recording = true
-        
+        initMotcap()
         
         let url = audioFilename
         
